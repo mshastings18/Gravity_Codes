@@ -2,6 +2,8 @@
 # Based on xcess_mass.pl by Dr. Connor. Calculate the excess mass from a gravity
 # anomaly. 
 
+# Author: Mitchell Hastings
+
 ############################################# SCAFFOLD #############################################
 ## have the functions call each other
 ## make gmtinterp(datafile) have arguments for grid spacing and region
@@ -83,6 +85,9 @@ def xcessmass_calc(grav, background_grav, utmx):
         reduced_grav = gravity - background_grav
         grav_sum = grav_sum + reduced_grav
     
+    # Convert mGals to m/s^2 for calculations
+    grav_sum = grav_sum/1e5
+    
     # constants 
     G = 6.674e-11# gravitational constant [m^3][kg^-1][s^-2]
     pi = np.pi # pi (3.14159...)
@@ -109,6 +114,8 @@ def xcess_mass(datafile, UTMZONE, background_grav):
     
     # Do the excess mass calculation 
     excess_mass = xcessmass_calc(grav, background_grav,utmx)
+    
+    print('Excess Mass: ', excess_mass,' kg')
     
     return excess_mass
 
