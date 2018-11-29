@@ -25,8 +25,8 @@ def gmtinterp(datafile):
     
     # these lines call gmt to do a block average smooth curve interpolation of the data then
     # convert it to an xyz grid
-    call("gmt blockmean %s -I0.001 -R-121.7/-121.5/41.55/41.65 > surf.in" %(datafile), shell = True)
-    call("gmt surface surf.in -I0.001 -R-121.7/-121.5/41.55/41.65 -Gsurf.grd", shell = True)
+    call("gmt blockmean %s -I0.001 -R-111.615/-111.540/42.76/42.825 > surf.in" %(datafile), shell = True)
+    call("gmt surface surf.in -I0.001 -R-111.615/-111.540/42.76/42.825 -Gsurf.grd", shell = True)
     call("gmt grd2xyz surf.grd > surf.xyz", shell = True)
     
 def latlon2UTM(xyzgrd,UTMZONE):
@@ -63,7 +63,7 @@ def latlon2UTM(xyzgrd,UTMZONE):
         long = float(raw[0])    # Longitude
         lat = float(raw[1])     # Latitude
         z = float(raw[2])       # Gravity, but can be other types of z-values
-        if (-121.625 <= long <= -121.550 and 41.575 <= lat <= 41.620): # restrict lat/long
+        if (-111.615 <= long <= -111.540 and 42.76 <= lat <= 42.825): # restrict lat/long
             utm_x, utm_y = transform(inProj, outProj, long,lat)
             utmx.append(utm_x)
             utmy.append(utm_y)
@@ -121,4 +121,4 @@ def xcess_mass(datafile, UTMZONE, background_grav):
 
 
 # Test line
-excess_mass = xcess_mass('MLgrav.dat', 10, -148) 
+excess_mass = xcess_mass('/home/mitch/Gravity/Potential_Fields/blkft_xcess_mass.dat', 12, -12) 
